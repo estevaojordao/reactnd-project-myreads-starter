@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Debounce } from 'react-throttle'
-
+import { debounce } from 'lodash'
 import BookShelf from './BookShelf'
 
 class SearchBar extends Component {
@@ -13,8 +13,8 @@ class SearchBar extends Component {
       value: '',
       results: []
     }
-
-    this.handleChange = this.handleChange.bind(this)
+     
+    this.handleChange = debounce(this.handleChange.bind(this), 200)
   }
 
   componentDidMount() {
@@ -33,6 +33,7 @@ class SearchBar extends Component {
       onSearch(value).then(results => {
         
         if (!results.error) {
+          this.setState({ results })
           results.forEach((result, index) => {
             let foundBookIndex = currentIds.indexOf(result.id)
 
@@ -40,7 +41,7 @@ class SearchBar extends Component {
           })
         }
 
-        this.setState({ results })
+        
       })
     }
 

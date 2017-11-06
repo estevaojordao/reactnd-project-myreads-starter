@@ -26,14 +26,10 @@ const BookShelf = ({ title, books, onChangeBookshelf }) => {
 }
 
 BookShelf.propTypes = {
-  title: PropTypes.string,
-  books: PropTypes.array,
+  title: PropTypes.string.isRequired,
+  books: PropTypes.array.isRequired,
   onChangeBookshelf: PropTypes.func,
 }
 
-BookShelf.defaultProps = {
-  title: '',
-  books: [],
-}
 
 export default BookShelf
