@@ -14,7 +14,7 @@ class SearchBar extends Component {
       results: []
     }
      
-    this.handleChange = debounce(this.handleChange.bind(this), 200)
+    this.handleChange = debounce(this.handleChange.bind(this), 100)
   }
 
   componentDidMount() {
@@ -33,15 +33,13 @@ class SearchBar extends Component {
       onSearch(value).then(results => {
         
         if (!results.error) {
+            results.forEach((result, index) => {
+              let foundBookIndex = currentIds.indexOf(result.id)
+
+              results[index] = foundBookIndex >= 0 ? books[foundBookIndex] : result
+            })
           this.setState({ results })
-          results.forEach((result, index) => {
-            let foundBookIndex = currentIds.indexOf(result.id)
-
-            results[index] = foundBookIndex >= 0 ? books[foundBookIndex] : result
-          })
-        }
-
-        
+        }      
       })
     }
 

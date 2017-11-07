@@ -34,7 +34,7 @@ class BooksApp extends React.Component {
       })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     BooksAPI
       .getAll()
       .then((response) => {
